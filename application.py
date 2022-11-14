@@ -1,7 +1,9 @@
 """APPLICATION.PY: Main module to run code"""
 #prog_assign3, application.py created
 
-
+#use try and except error stuff. No crashing allowed. 
+#if crashing is inevitable, tell user of error and say 'see you'
+#negative vals for bank info isn't allowed
 
 #main class, user interaction
 class Program:
