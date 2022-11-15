@@ -17,9 +17,7 @@ class Program:
             print("\nOPTIONS [O] | OPEN ACCOUNT [A] | SELECT ACCOUNT [S] | EXIT [EXIT]")
             user=input("YOU SELECTED: ").upper()
             try:
-                if(user=="O"):
-                    print("options")
-                elif(user=="A"):
+                if(user=="A"):
                     print("open a new account")        
                 elif(user=="S"):
                     print("select account")  
