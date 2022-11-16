@@ -32,9 +32,9 @@ class Bank:
     def searchAccount(self,accN):
         print(accN,len(self.accountList))  
         for account in self.accountList:
-            print(account.getAccountNum(), "is the account num")
             try:
                 if (account.getAccountNum()==int(accN)):
+                    
                     #returns an actual object
                     return account
             except (TypeError, ValueError):
@@ -95,8 +95,7 @@ class SavingsAccount(Account):
         return 0   
 
 
-class ChequingAccount(Account):
-    pass #child of Account. transactions cannot extend over a given limit
+class ChequingAccount(Account): #child of Account. transactions cannot extend over a given limit
     def __init__(self,num,holder,interest,bal,ovDAllow):
         super().__init__(num,holder,interest,bal)
         self.overdraftAllowed=ovDAllow
