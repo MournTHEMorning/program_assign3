@@ -20,7 +20,7 @@ class Program:  #main class, user interaction
     def showMainMenu(self):
         loop=True;leave=" "
         while loop:
-            print("\n OPEN ACCOUNT [O] | SELECT ACCOUNT [S] | EXIT [EXIT]")
+            print("\nOPEN ACCOUNT [O] | SELECT ACCOUNT [S] | EXIT [EXIT]")
             user=input("YOU SELECTED: ").upper()
             try:
                 if(user=="O"):
