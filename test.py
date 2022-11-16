@@ -1,8 +1,48 @@
 # """test module to test stuff separetly"""
 
+
+
+#making Search account work - not yet
+
+class Bank:
+    #note to self: bank account num 5-17 digits; i'll do 5, 0.10% is standard interest or 0.001
+
+    #account search/open account
+        #account list
+    def __init__(self):
+        self.bankName="Oddity Banks"
+        self.accountList=[]
+        #Account init:(num,holder,interest,bal): rep a bank account
+
+        #hardset accounts
+        self.acc1=SavingsAccount(12345,"Percyson Testin",0.001,10000,5000)
+        self.acc2=SavingsAccount(54321,"Reed Vers",0.001,300000,5000)
+        self.acc3=SavingsAccount(33335,"Ankil Ma",0.001,100,10000)
+        self.acc4=ChequingAccount(78910,"Notch E. Bangle",0.002,4000000,6000)
+        self.acc5=ChequingAccount(6656, "Quince Ruta",0.002,8080,500)
+
+        #appending to list
+        self.accountList.append(self.acc1)
+        self.accountList.append(self.acc2)
+        self.accountList.append(self.acc3)
+        self.accountList.append(self.acc4)
+        self.accountList.append(self.acc5)
+
+
+    def searchAccount(self,accN):
+        print(accN,len(self.accountList))  
+        for account in self.accountList:
+            print(account,accN)
+            try:
+                if (account.getAccountNum()==int(accN)):
+                    return account
+            except TypeError:
+                pass
+
 class Account:
     #note to self: bank account num 5-17 digits; i'll do 5, 0.10% is standard interest or 0.001
     def __init__(self,num,holder,interest,bal): #rep a bank account
+        print("HI! ACCOUNT HERE")
         self.accNum=num #int val
         self.accHolderName=holder #string val
         self.rateOfInterest=interest #float val
@@ -10,10 +50,13 @@ class Account:
 
     def getAccountNum(self):
         return self.accNum
+        
     def getAccountHolderName(self):
         return self.getAccountHolderName
+
     def getRateOfInterest(self):
         return self.rateOfInterest
+
     def getCurrentBalance(self):
         return self.currentBalance
 
@@ -29,10 +72,13 @@ class Account:
         print("You limit funds to withdraw ${}.".format(self.currentBalance))
         return 0
 
+
 class SavingsAccount(Account):
-    def __init__(self,mini):
+    def __init__(self,num,holder,interest,bal,mini):
+        print("i like to save")
         #child of Account, which restricts withdrawal in account
-        super().__init__()
+        super().__init__(num,holder,interest,bal)
+        print("i steal")
         self.minimumBalance=mini
 
     def withdraw(self,want):
@@ -47,8 +93,10 @@ class SavingsAccount(Account):
 
 class ChequingAccount(Account):
     pass #child of Account. transactions cannot extend over a given limit
-    def __init__(self,ovDAllow):
-        super().__init__()
+    def __init__(self,num,holder,interest,bal,ovDAllow):
+        print("CHEQUEING OUT THE CHEQUEEEEE!")
+        super().__init__(num,holder,interest,bal)
+        print("hello.")
         self.overdraftAllowed=ovDAllow
 
     def withdraw(self, want):
@@ -60,30 +108,14 @@ class ChequingAccount(Account):
         return 0   
 
 
-class Bank():
-    #note to self: bank account num 5-17 digits; i'll do 5, 0.10% is standard interest or 0.001
 
-    #account search/open account
-        #account list
-    def __init__(self):
-        self.bankName="Oddity Banks"
-        self.accountList=[]
-        #Account init:(num,holder,interest,bal): rep a bank account
-        acc1=SavingsAccount(12345,"Percyson Testin",0.001,10000,5000)
-        acc2=SavingsAccount(54321,"Reed Vers",0.001,300000,5000)
-        acc3=SavingsAccount(33335,"Ankil Ma",0.001,100,10000)
-        acc4=ChequingAccount(78910,"Notch E. Bangle",0.002,4000000,6000)
-        acc5=ChequingAccount(6656, "Quince Ruta",0.002,8080,500)
-        self.accountList.extend(acc1,acc2,acc3,acc4,acc5)
 
-    def searchAccount(accountNum):
-        for account in accountList:
-            try:
-                if (account.getAccountNum()==accountNum):
-                    return account
-            except TypeError:
-                pass
+stonk=Bank()
+print(type(stonk))
+print(stonk.searchAccount(12345))
+# print(b.searchAccount(12345))
 
+#checking if showAccountMenu works - works
 # class Program():
 #     def __init__(self):
 #         pass
@@ -99,8 +131,7 @@ class Bank():
 #             except ValueError or KeyboardInterrupt:
 #                 pass
 
-
-print(Bank.searchAccount(12345))
+#checking if withdrawal works - works
 # def withdraw(currentBalance,minimumBalance,want):
 #     #note to self: check if this works
 #     if((currentBalance-want)>=minimumBalance):
