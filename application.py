@@ -14,13 +14,20 @@ class Program:
     def showMainMenu(self):
         loop=True
         while loop:
-            print("\nOPTIONS [O] | OPEN ACCOUNT [A] | SELECT ACCOUNT [S] | EXIT [EXIT]")
+            print("\n OPEN ACCOUNT [A] | SELECT ACCOUNT [S] | EXIT [EXIT]")
             user=input("YOU SELECTED: ").upper()
             try:
                 if(user=="A"):
                     print("open a new account")        
                 elif(user=="S"):
-                    print("select account")  
+                    while loop:
+                        try:
+                            selectAcc=int(input("Fantastic. Name the number of the account: "))
+                            self.showAccountMenu()
+                        except ValueError or KeyboardInterrupt:
+                            pass
+
+
                 elif(user=="EXIT"):
                     print("Are you sure you want to EXIT?")  
                     leave=input("\nType YES to confirm or anything else to deny: ").upper()
@@ -29,8 +36,9 @@ class Program:
                 else:
                     print("Please select a proper option...")
 
-            except ValueError:
-                pass
+            except (ValueError,EOFError,KeyboardInterrupt):
+                print("hey?")
+
             finally:
                 print(self.line)
                     
@@ -49,7 +57,28 @@ class Program:
 
 
 class Account:
-    pass #rep a bank account
+    def __init__(self): #rep a bank account
+        self.accNum=3526789
+        self.accHolderName="Testu"
+        self.rateOfInterest=0.05
+        self.currentBalance=400
+
+    def getAcountNum(self):
+        return self.accNum
+    def getAccountHolderName(self):
+        return self.getAccountHolderName
+    def getRateOfInterest(self):
+        return self.rateOfInterest
+    def getCurrentBalance(self):
+        return self.currentBalance
+    def deposit(self,dep):
+        self.currentBalance+=dep
+    def withdraw(self,want):
+        if(self.currentBalance-want>=0.01):
+            self.currentBalance-=want
+            return want
+        print("You limit funds to withdraw ${}.".format(self.currentBalance))
+        return 0
 
 class SavingsAccount(Account):
     #child of Account, which restricts withdrawal in account
