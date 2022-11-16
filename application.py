@@ -13,7 +13,10 @@ class Program:
         print("initialized! CHANGE LATER")
 
     def showAccountMenu(self):
+        #checks if a valid account
         pass
+
+
         #has options checkBalance, Deporsit, withdraw, exitAccount
         #checkBalance, deposit, withdraw, exit
 
@@ -65,7 +68,7 @@ class Account:
         self.rateOfInterest=interest #float val
         self.currentBalance=bal #int val
 
-    def getAcountNum(self):
+    def getAccountNum(self):
         return self.accNum
     def getAccountHolderName(self):
         return self.getAccountHolderName
@@ -126,15 +129,21 @@ class Bank():
         self.bankName="Oddity Banks"
         self.accountList=[]
         #Account init:(num,holder,interest,bal): rep a bank account
-        acc1=SavingsAccount(12345,"Percyson Testin",0.001,10000,5000).append(self.accountList)
-        acc2=SavingsAccount(54321,"Reed Vers",0.001,300000,5000).append(self.accountList)
-        acc3=SavingsAccount(33335,"Ankil Ma",0.001,100,10000).append(self.accountList)
-        acc4=ChequingAccount(78910,"Notch Bangle",0.002,4000000,6000).append(self.accountList)
-        acc5=ChequingAccount(6656, "Quince Ruta",0.002,8080,500).append(self.accountList)
-    #make automatic list of 5 accounts. automatic, random stuff you want
-    #i.e. name=Sarah, salery=500mil, job=mafia or something
+        acc1=SavingsAccount(12345,"Percyson Testin",0.001,10000,5000)
+        acc2=SavingsAccount(54321,"Reed Vers",0.001,300000,5000)
+        acc3=SavingsAccount(33335,"Ankil Ma",0.001,100,10000)
+        acc4=ChequingAccount(78910,"Notch E. Bangle",0.002,4000000,6000)
+        acc5=ChequingAccount(6656, "Quince Ruta",0.002,8080,500)
+        self.accountList.extend(acc1,acc2,acc3,acc4,acc5)
+
     def searchAccount(self, accountNum):
-        #aka logic for Program class
+        for account in self.accountList:
+            try:
+                if (account.getAccountNum()==accountNum):
+                    return account
+            except TypeError:
+                pass
+        
         self.accountNum=accountNum #temp paramenter
         #return account associated with accountNum
     def openAccount():
