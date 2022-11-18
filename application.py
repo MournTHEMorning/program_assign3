@@ -9,10 +9,20 @@ class Program:  #main class, user interaction
     def __init__(self):
         self.line="-----*-----"
         self.breakLine="=====* * *====="
+        self.bank=Bank()
 
-    def showAccountMenu(self):
-        #checks if a valid account
-        pass
+    def showAccountMenu(self,accNum):
+        userAccount=self.bank.searchAccount(accNum)
+        if(type(userAccount)==SavingsAccount or type(userAccount)==ChequingAccount):
+            print("valid!")
+        else:
+            print("falsehood")
+        #uses search in Bank to check for validity
+# 1.	Check Balance: Display the balance of the selected account
+# 2.	Deposit: Prompt the user for an amount to deposit and perform the deposit using the methods in account class. 
+# 3.	Withdraw: Prompt the user for an amount to withdraw and perform the withdrawal using the methods in the account class. 
+# 4.	Exit Account: go back to Banking Main Menu
+
 
 
         #checkBalance, deposit, withdraw, exit
@@ -23,26 +33,34 @@ class Program:  #main class, user interaction
             print("\nOPEN ACCOUNT [O] | SELECT ACCOUNT [S] | EXIT [EXIT]")
             user=input("YOU SELECTED: ").upper()
             try:
+                #To open an account
                 if(user=="O"):
-                    print("open a new account")        
+                    print("open a new account")  
+
+                #To select an account      
                 elif(user=="S"):
                     while loop:
-                        try:
-                            selectAcc=int(input("Fantastic. Name the number of the account (5 digit): "))
-                            self.showAccountMenu()
-                            loop=False
-                        except (ValueError, KeyboardInterrupt):
-                            pass
+                        # try:
+                        selectAcc=int(input("Fantastic. Name the number of the account (5 digit): "))
+                        self.showAccountMenu(selectAcc)
+                        #ERROR HERE; FIND OUT!!
+                        loop=False
+                        # except (ValueError, TypeError):
+                        #     print("2. Please input valid type. There was an Value Error, type or Keyboard.. error")
+                
+                #To leave Main Menu
                 elif(user=="EXIT"):
                     print("Are you sure you want to EXIT?")  
                     leave=input("\nType YES to confirm or anything else to deny: ").upper()
                     if(leave=="YES"):
                         loop=False
+                
+                #Invalid menu option
                 else:
                     print("Please select a proper option...")
 
             except (ValueError,EOFError,KeyboardInterrupt):
-                print("hey?")
+                print("1. There was an Value Error, EOFError or Keyboard.. error")
 
             finally:
                 print(self.line)
@@ -78,7 +96,6 @@ class Bank: #account search/open account
         self.accountList.append(self.acc4)
         self.accountList.append(self.acc5)
 
-
     def searchAccount(self,accN):
         print(accN,len(self.accountList))  
         for account in self.accountList:
@@ -89,7 +106,7 @@ class Bank: #account search/open account
                     return account
             except (TypeError, ValueError):
                 pass
-        print("This account does not exist")
+        print("Sorry. This account does not exist")
         
     #method to make an account
     def openAccount():
