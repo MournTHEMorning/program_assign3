@@ -1,15 +1,44 @@
 #attempt 2 on the program because I wrote the program incorrectly
 
 class Program:
+    def __init__(self):
+        self.line="-----*-----"
+        self.breakLine="=====* * *====="
+        #self.bank=Bank()        
+
+    def showMainMenu(self):
+        user=" "
+        while user!="EXIT":
+            print("\nOPEN ACCOUNT [O] | SELECT ACCOUNT [S] | EXIT [EXIT]")
+            try:
+                user=input("YOU SELECTED: ").upper()
+
+                if(user=="O"):
+                    print("open")
+
+                elif(user=="S"):
+                    print("select account")
+
+                else:
+                    print("Please select a proper option or type EXIT to leave.\n"+self.breakLine)
+
+            except Exception:
+                pass
+            
+            finally:
+                print(self.breakLine)
+
+    def showAccountMenu(self):
+        pass
+
+    #run code
     def run(self):
-        #shows main menu, beginning user interaction
         print("Welcome to Oddity Banks!\nHow can I help you?")
         self.showMainMenu()
-        print("Have a good one, customer!")
+        print("\nHave a good one, customer!")
 
-    def showMainMenu():
-        pass
+#consider making seperate files for better organization??
 
-    def showAccountMenu():
-        pass
-#consider making seperate files for better organization
+#main code
+main=Program()
+main.run()
