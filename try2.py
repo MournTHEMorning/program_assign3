@@ -1,3 +1,6 @@
+import BusinessLogic
+b=BusinessLogic.Bank()
+
 #attempt 2 on the program because I wrote the program incorrectly
 
 class Program:
@@ -15,9 +18,16 @@ class Program:
 
                 if(user=="O"):
                     print("open")
+                    #Bank.openAccount()
 
                 elif(user=="S"):
-                    print("select account")
+                    try:
+                        acc=int(input(("Fantastic. Please write your account number: ")))
+
+                    except Exception:
+                        print("1. There was an error in the input")
+                    finally: 
+                        print(self.line)
 
                 else:
                     print("Please select a proper option or type EXIT to leave.\n"+self.breakLine)
@@ -38,6 +48,7 @@ class Program:
         print("\nHave a good one, customer!")
 
 #consider making seperate files for better organization??
+
 
 #main code
 main=Program()
