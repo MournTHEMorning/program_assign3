@@ -74,6 +74,8 @@ class Program:
                     verify=input("Are you sure you want to deposit? Type YES to continue: ").upper()
                     if verify=="YES":
                         accountType=input("Deposit to Savings[S] or Chequing[C] account? ").upper()
+                        while (accountType!="S" and accountType!="C"):
+                            accountType=input("Deposit to Savings[S] or Chequing[C] account? ").upper()
                         cash=float(input("How much money are you depositing?: "))
                         if accountType=="S" and cash>=0:
                             holderSavAcc.deposit(cash)
@@ -89,15 +91,32 @@ class Program:
                         
                             #updates the main account's cur bal 
                             askedAccount.deposit(cash)
-                    
- 
-
-
-                        
-
-
 
                 #Account Menu[W]: Withdraws money in Savings or Chequings
+                elif(accMenu=="W"):
+                    verify=input("Are you sure you want to withdraw? Type YES to continue: ").upper()
+                    if verify=="YES":
+                        accountType=input("Withdraw from Savings[S] or Chequing[C] account? ").upper()
+                        while (accountType!="S" and accountType!="C"):
+                            accountType=input("Withdraw from Savings[S] or Chequing[C] account? ").upper()
+                        cash=float(input("How much money are you withdrawing?: "))
+                        
+                        #SAVINGS ACCOUNT
+                        if accountType=="S" and cash>=0:
+                            holderSavAcc.withdraw(cash)
+                            input("Your Savings withdrawal has been processed. PRESS ANY KEY TO CONTINUE:")
+
+                            #updates the main account's cur bal 
+                            askedAccount.withdraw(cash)
+                    
+
+                        # #CHEQUING ACCOUNT
+                        # elif accountType=="C" and cash>=0:
+                        #     holderCheqAcc.withdraw(cash)
+                        #     input("Your Chequing withdrawal has been processed. PRESS ANY KEY TO CONTINUE:")
+
+                        #     #updates the main account's cur bal 
+                        #     askedAccount.withdraw(cash)
 
                 #Account Menu: Not an option in Account Menu
                 else:
