@@ -2,10 +2,15 @@
 class Bank:
     bankName="Oddity Bank"
     def __init__(self):
-        self.accList=[1] #change!!!!
+        self.accList=[] #change!!!!
+        acc1=Account(1234,"Exa Pullwan",5000,4000)
+        acc2=Account(2345,"Anna Tracy",100,50)
+        acc3=Account(3456,"Aniok Tara",20,0.05)
+        acc4=Account(4567,"Pickolas Cage",20000,3000)
+        acc5=Account(5678,"Iwan Kim",3000,900)
 
-#class Account
-#account = culminative
+
+#class Account, culminative of user
 class Account:
     def __init__(self,num,holder,savBal,cheqBal):
         self.num=num
@@ -43,7 +48,6 @@ class SavingsAccount(Account):
     def __init__(self,num,holder,savBal):
         super().__init__(num+1,holder,savBal,0)
         self.roi=0.1 #savings roi
-
 
 
 #class ChequingAccount
