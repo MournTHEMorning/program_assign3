@@ -16,9 +16,35 @@ class Bank:
         self.accList.append(acc4)
         self.accList.append(acc5)
 
-        # #checking if it's in list, DELETE LATER. All good as of 12:04PM nov 20
-        # for accounts in self.accList:
-        #     print(accounts.getAccNum())
+        #Savings account list
+        self.savAccList=[]
+        acc1=SavingsAccount(1234,"Exa Pullwan",5000)
+        acc2=SavingsAccount(2345,"Anna Tracy",100)
+        acc3=SavingsAccount(3456,"Aniok Tara",20)
+        acc4=SavingsAccount(4567,"Pickolas Cage",20000)
+        acc5=SavingsAccount(5678,"Iwan Kim",3000)
+
+        #adding savings accounts on list
+        self.savAccList.append(acc1)
+        self.savAccList.append(acc2)
+        self.savAccList.append(acc3)
+        self.savAccList.append(acc4)
+        self.savAccList.append(acc5)
+
+        #Chequing account list
+        self.cheqAccList=[]
+        acc1=ChequingAccount(1234,"Exa Pullwan",4000)
+        acc2=ChequingAccount(2345,"Anna Tracy",50)
+        acc3=ChequingAccount(3456,"Aniok Tara",0.05)
+        acc4=ChequingAccount(4567,"Pickolas Cage",3000)
+        acc5=ChequingAccount(5678,"Iwan Kim",900)
+
+        #adding chequing accounts on list
+        self.cheqAccList.append(acc1)
+        self.cheqAccList.append(acc2)
+        self.cheqAccList.append(acc3)
+        self.cheqAccList.append(acc4)
+        self.cheqAccList.append(acc5)
 
     def searchAccount(self,accountSearch):
         for accounts in self.accList:
@@ -72,3 +98,14 @@ class ChequingAccount(Account):
     def __init__(self,num,holder,cheqBal):
         super().__init__(num+2,holder,0,cheqBal)
         self.roi=0 #cheq roi
+
+
+#Testing; DELETE LATER
+# for account in Bank().accList:
+#     print(account.getAccNum())
+
+# for account in Bank().savAccList:
+#     print(account.getAccNum())
+
+for account in Bank().cheqAccList:
+    print(account.getAccNum())
