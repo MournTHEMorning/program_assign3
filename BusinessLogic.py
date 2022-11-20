@@ -52,6 +52,12 @@ class Bank:
                 return accounts
         return "Oddity Bank does not have this account number. Please open an account with us."
 
+    #searches the savAccList for the respective account. mainAccount parameter should be the main account's num
+    def searchSavAccount(self,mainAccount):
+        for accounts in self.savAccList:
+            if(accounts.getAccNum() == mainAccount+1):
+                return accounts
+
 
 #class Account, culminative of user
 class Account:
@@ -76,7 +82,6 @@ class Account:
     #get currentBalance. get total if in account class, gets specific class balance of cheq or save
     def getCurrentBal(self):
         return self.curBal
-
 
     def deposit(self):
         print("deposit :)")
@@ -107,5 +112,5 @@ class ChequingAccount(Account):
 # for account in Bank().savAccList:
 #     print(account.getAccNum())
 
-for account in Bank().cheqAccList:
-    print(account.getAccNum())
+# for account in Bank().cheqAccList:
+#     print(account.getAccNum())
