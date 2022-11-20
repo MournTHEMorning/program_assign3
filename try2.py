@@ -1,8 +1,6 @@
 #import business logic and all classes
 import BusinessLogic
 
-#attempt 2 on the program because I wrote the program incorrectly
-
 class Program:
     bank=BusinessLogic.Bank()
     # account=BusinessLogic.Account()
@@ -27,10 +25,14 @@ class Program:
                 elif(user=="S"):
                     try:
                         acc=int(input(("Fantastic. Please write your account number: ")))
-                        if(len(acc)==4):
+                        if(acc>=1000 and acc<=9999): #checks if the acc is 4 digits, in an integer way
+
                             #check if account exists via the method in bank; HERE!!
-                            #bank.searchAccount(acc)
-                            self.showAccountMenu(acc)
+                            askedAccount=self.bank.searchAccount(acc)
+                            if(type(askedAccount)==str):
+                                pass
+                            else:
+                                self.showAccountMenu(askedAccount)
 
                     except Exception:
                         print("1. There was an error in the input")
@@ -47,8 +49,8 @@ class Program:
             finally:
                 print(self.breakLine)
 
-    def showAccountMenu(self,accountNum): #HERE
-        print(self.breakLine+"\nWelcome to Account {}. This is the account menu.".format("TEMP-account.getAccNum()"))
+    def showAccountMenu(self,askedAccount): #HERE
+        print(self.breakLine+"\nWelcome to Account {}. This is the account menu.".format(askedAccount.getAccNum()))
 
 
     #run code
