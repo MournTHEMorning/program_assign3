@@ -113,6 +113,15 @@ class SavingsAccount(Account):
     def getMiniBal(self):
         return self.minimumBalance
 
+    def withdraw(self,requestedAmount):
+        if (requestedAmount>(self.curBal-self.minimumBalance) and requestedAmount>=0):
+            print("Withdraw rejected. Your current balance is ${} CAD, and your minimum balance required in this savings account is ${} CAD.".format(self.curBal,self.minimumBalance))
+            return False #False for successful print statement to show or not
+        else:
+            self.curBal-=requestedAmount
+            print("oui oui oui save")
+            return True #True for successful print statement to show and changes the culminative current balance respectively
+
 
 #class ChequingAccount
 class ChequingAccount(Account):
@@ -123,6 +132,17 @@ class ChequingAccount(Account):
 
     def getOverdraft(self):
         return self.overdraftAllowed
+
+    #GO OVER!!
+    # def withdraw(self,requestedAmount):
+    #     if requestedAmount>self.overdraftAllowed:
+    #         print("Withdraw rejected. Your current balance is ${} CAD, and you have ${} CAD left in your overdraft.".format(self.curBal,self.overdraftAllowed))
+    #         return False #False for successful print statement to show or not
+    #     else:
+    #         self.curBal-=requestedAmount
+    #         print("oui oui oui cheq")
+
+
 
 
 #Testing; DELETE LATER

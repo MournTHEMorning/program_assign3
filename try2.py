@@ -18,10 +18,10 @@ class Program:
                 #Main Menu[S]: Select Account, switches to AccountMenu
                 if(user=="S"):
                     try:
-                        acc=int(input(("Fantastic. Please write your 4-digit account number: ")))
+                        acc=int(input(("Fantastic! Please write your 4-digit general account number: ")))
                         if(acc>=1000 and acc<=9999): #checks if the acc is 4 digits, in an integer way
 
-                            #check if account exists via the method in bank; HERE!!
+                            #check if account exists via the method in bank
                             askedAccount=self.bank.searchAccount(acc)
                             if(type(askedAccount)==str):
                                 print(askedAccount)
@@ -52,7 +52,7 @@ class Program:
         print(self.breakLine+"\nWelcome to Account {}. This is the account menu.".format(askedAccount.getAccNum()))
 
         while accMenu!="RETURN": 
-            print("CHECK BALANCE [B] || DEPOSIT [D] || WITHDRAW [W] || RETURN TO MAIN MENU [RETURN]")
+            print("CHECK BALANCE [B] ||| DEPOSIT [D] ||| WITHDRAW [W] ||| RETURN TO MAIN MENU [RETURN]")
             try:
                 accMenu=input("YOU SELECTED: ").upper()
 
@@ -64,12 +64,12 @@ class Program:
                 #Account Menu[D]: Deposits money in Savings or Chequings
                 elif(accMenu=="D"):
                     verify=input("Are you sure you want to deposit? Type YES to continue: ").upper()
-                    if verify=="YES":
+                    if (verify=="YES"):
                         accountType=input("Deposit to Savings[S] or Chequing[C] account? ").upper()
                         while (accountType!="S" and accountType!="C"):
                             accountType=input("Deposit to Savings[S] or Chequing[C] account? ").upper()
                         cash=float(input("How much money are you depositing?: "))
-                        if accountType=="S" and cash>=0:
+                        if (accountType=="S" and cash>=0):
                             holderSavAcc.deposit(cash)
                             input("Your Savings deposit has been processed. PRESS ANY KEY TO CONTINUE:")
 
@@ -77,7 +77,7 @@ class Program:
                             askedAccount.deposit(cash)
                     
 
-                        elif accountType=="C" and cash>=0:
+                        elif (accountType=="C" and cash>=0):
                             holderCheqAcc.deposit(cash)
                             input("Your Chequing deposit has been processed. PRESS ANY KEY TO CONTINUE:")
                         
@@ -87,7 +87,7 @@ class Program:
                 #Account Menu[W]: Withdraws money in Savings or Chequings
                 elif(accMenu=="W"):
                     verify=input("Are you sure you want to withdraw? Type YES to continue: ").upper()
-                    if verify=="YES":
+                    if (verify=="YES"):
                         accountType=input("Withdraw from Savings[S] or Chequing[C] account? ").upper()
                         while (accountType!="S" and accountType!="C"):
                             accountType=input("Withdraw from Savings[S] or Chequing[C] account? ").upper()
@@ -96,18 +96,16 @@ class Program:
                         #TO EDIT BECAUSE withdrawal needs to be fixed in the business logic class; HERE!! PRESENT!!!
 
                         # #SAVINGS ACCOUNT
-                        # if accountType=="S" and cash>=0:
-                        #     holderSavAcc.withdraw(cash)
-                        #     input("Your Savings withdrawal has been processed. PRESS ANY KEY TO CONTINUE:")
-
-                        #     #updates the main account's cur bal 
-                        #     askedAccount.withdraw(cash)
-                    
+                        if (accountType=="S" and cash>=0):
+                            if(holderSavAcc.withdraw(cash)):
+                                input("Your Savings withdrawal has been processed. PRESS ANY KEY TO CONTINUE:")
+                                #updates the main account's cur bal 
+                                askedAccount.withdraw(cash)
 
                         # #CHEQUING ACCOUNT
-                        # elif accountType=="C" and cash>=0:
-                        #     holderCheqAcc.withdraw(cash)
-                        #     input("Your Chequing withdrawal has been processed. PRESS ANY KEY TO CONTINUE:")
+                        # elif (accountType=="C" and cash>=0):
+                        #     if(holderCheqAcc.withdraw(cash)):
+                            #     input("Your Chequing withdrawal has been processed. PRESS ANY KEY TO CONTINUE:")
 
                         #     #updates the main account's cur bal 
                         #     askedAccount.withdraw(cash)
@@ -119,17 +117,15 @@ class Program:
 
             except Exception:
                 print("2. There was an error in the input")
+            #ending for the account menu try block
             finally:
                 print(self.breakLine)
 
-    #run code
+    #run():runs code for user interaction and begins program
     def run(self):
         print("Welcome to Oddity Banks!\nHow can I help you?")
         self.showMainMenu()
         print("\nHave a good one, customer!")
-
-#consider making seperate files for better organization?? yes boi
-
 
 #main code
 main=Program()
