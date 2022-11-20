@@ -3,6 +3,7 @@ class Bank:
     bankName="Oddity Bank"
     def __init__(self):
         self.accList=[]
+        #Account(number,holder,savingsBal,chequeBal)
         acc1=Account(1234,"Exa Pullwan",5000,4000)
         acc2=Account(2345,"Anna Tracy",100,50)
         acc3=Account(3456,"Aniok Tara",20,0.05)
@@ -18,11 +19,12 @@ class Bank:
 
         #Savings account list
         self.savAccList=[]
-        acc1=SavingsAccount(1234,"Exa Pullwan",5000)
-        acc2=SavingsAccount(2345,"Anna Tracy",100)
-        acc3=SavingsAccount(3456,"Aniok Tara",20)
-        acc4=SavingsAccount(4567,"Pickolas Cage",20000)
-        acc5=SavingsAccount(5678,"Iwan Kim",3000)
+        #SavingsAccount(general Account number,holder,savingsBal,minimumBal)
+        acc1=SavingsAccount(1234,"Exa Pullwan",5000,5000)
+        acc2=SavingsAccount(2345,"Anna Tracy",100,100)
+        acc3=SavingsAccount(3456,"Aniok Tara",20,5)
+        acc4=SavingsAccount(4567,"Pickolas Cage",20000,5000)
+        acc5=SavingsAccount(5678,"Iwan Kim",3000,1000)
 
         #adding savings accounts on list
         self.savAccList.append(acc1)
@@ -33,11 +35,12 @@ class Bank:
 
         #Chequing account list
         self.cheqAccList=[]
-        acc1=ChequingAccount(1234,"Exa Pullwan",4000)
-        acc2=ChequingAccount(2345,"Anna Tracy",50)
-        acc3=ChequingAccount(3456,"Aniok Tara",0.05)
-        acc4=ChequingAccount(4567,"Pickolas Cage",3000)
-        acc5=ChequingAccount(5678,"Iwan Kim",900)
+        #SavingsAccount(general Account number,holder,chequingBal,overdraft Allowed)
+        acc1=ChequingAccount(1234,"Exa Pullwan",4000,500)
+        acc2=ChequingAccount(2345,"Anna Tracy",50,1000)
+        acc3=ChequingAccount(3456,"Aniok Tara",0.05,5000)
+        acc4=ChequingAccount(4567,"Pickolas Cage",3000,10000)
+        acc5=ChequingAccount(5678,"Iwan Kim",900,50)
 
         #adding chequing accounts on list
         self.cheqAccList.append(acc1)
@@ -50,7 +53,7 @@ class Bank:
         for accounts in self.accList:
             if(accounts.getAccNum() == accountSearch):
                 return accounts
-        return "Oddity Bank does not have this account number. Please open an account with us."
+        return "Oddity Bank does not have this account number. Please leave and go to a different bank."
 
     #searches the savAccList for the respective account. mainAccount parameter should be the main account's num
     def searchSavAccount(self,mainAccount):
@@ -89,27 +92,37 @@ class Account:
     def getCurrentBal(self):
         return self.curBal
 
+    #deposits cash into the current Balance of the account
     def deposit(self,cash):
         self.curBal+=cash
-        print("deposit :)")
         
-    def withdraw(self):
+    #withdraws cash into the current Balance of the account. Is used by Account class and should not be used by the other classes
+    def withdraw(self,cash):
+        self.curBal-=cash
         print("withdrawww")
 
 
 
 #class SavingsAccount
 class SavingsAccount(Account):
-    def __init__(self,num,holder,savBal):
+    def __init__(self,num,holder,savBal,minimum):
         super().__init__(num+1,holder,savBal,0)
         self.roi=0.1 #savings roi
+        self.minimumBalance=minimum
+
+    def getMiniBal(self):
+        return self.minimumBalance
 
 
 #class ChequingAccount
 class ChequingAccount(Account):
-    def __init__(self,num,holder,cheqBal):
+    def __init__(self,num,holder,cheqBal,overdraft):
         super().__init__(num+2,holder,0,cheqBal)
         self.roi=0 #cheq roi
+        self.overdraftAllowed=overdraft
+
+    def getOverdraft(self):
+        return self.overdraftAllowed
 
 
 #Testing; DELETE LATER

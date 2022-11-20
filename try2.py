@@ -3,9 +3,6 @@ import BusinessLogic
 
 class Program:
     bank=BusinessLogic.Bank()
-    # account=BusinessLogic.Account()
-    # save=BusinessLogic.SavingsAccount()
-    # cheque=BusinessLogic.ChequingAccount()
 
     def __init__(self):
         self.line="-----*-----"
@@ -14,17 +11,12 @@ class Program:
     def showMainMenu(self):
         user=" "
         while user!="EXIT":
-            print("\nOPEN ACCOUNT [O] | SELECT ACCOUNT [S] | EXIT [EXIT]")
+            print("\nSELECT ACCOUNT [S] | EXIT [EXIT]")
             try:
                 user=input("YOU SELECTED: ").upper()
 
-                #Main Menu[O]: Open an account with the Bank
-                if(user=="O"):
-                    print("open")
-                    #Bank.openAccount()
-
                 #Main Menu[S]: Select Account, switches to AccountMenu
-                elif(user=="S"):
+                if(user=="S"):
                     try:
                         acc=int(input(("Fantastic. Please write your 4-digit account number: ")))
                         if(acc>=1000 and acc<=9999): #checks if the acc is 4 digits, in an integer way
@@ -101,13 +93,15 @@ class Program:
                             accountType=input("Withdraw from Savings[S] or Chequing[C] account? ").upper()
                         cash=float(input("How much money are you withdrawing?: "))
                         
-                        #SAVINGS ACCOUNT
-                        if accountType=="S" and cash>=0:
-                            holderSavAcc.withdraw(cash)
-                            input("Your Savings withdrawal has been processed. PRESS ANY KEY TO CONTINUE:")
+                        #TO EDIT BECAUSE withdrawal needs to be fixed in the business logic class; HERE!! PRESENT!!!
 
-                            #updates the main account's cur bal 
-                            askedAccount.withdraw(cash)
+                        # #SAVINGS ACCOUNT
+                        # if accountType=="S" and cash>=0:
+                        #     holderSavAcc.withdraw(cash)
+                        #     input("Your Savings withdrawal has been processed. PRESS ANY KEY TO CONTINUE:")
+
+                        #     #updates the main account's cur bal 
+                        #     askedAccount.withdraw(cash)
                     
 
                         # #CHEQUING ACCOUNT
