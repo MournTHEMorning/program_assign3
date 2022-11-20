@@ -93,8 +93,6 @@ class Program:
                             accountType=input("Withdraw from Savings[S] or Chequing[C] account? ").upper()
                         cash=float(input("How much money are you withdrawing?: "))
                         
-                        #TO EDIT BECAUSE withdrawal needs to be fixed in the business logic class; HERE!! PRESENT!!!
-
                         # #SAVINGS ACCOUNT
                         if (accountType=="S" and cash>=0):
                             if(holderSavAcc.withdraw(cash)):
@@ -103,12 +101,11 @@ class Program:
                                 askedAccount.withdraw(cash)
 
                         # #CHEQUING ACCOUNT
-                        # elif (accountType=="C" and cash>=0):
-                        #     if(holderCheqAcc.withdraw(cash)):
-                            #     input("Your Chequing withdrawal has been processed. PRESS ANY KEY TO CONTINUE:")
-
-                        #     #updates the main account's cur bal 
-                        #     askedAccount.withdraw(cash)
+                        elif (accountType=="C" and cash>=0):
+                            if(holderCheqAcc.withdraw(cash)):
+                                input("Your Chequing withdrawal has been processed. PRESS ANY KEY TO CONTINUE:")
+                                #updates the main account's cur bal 
+                                askedAccount.withdraw(cash)
 
                 #Account Menu: Not an option in Account Menu
                 else:

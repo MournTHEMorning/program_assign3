@@ -95,6 +95,8 @@ class Account:
     #deposits cash into the current Balance of the account
     def deposit(self,cash):
         self.curBal+=cash
+        #ADD OVERDRAFT DEBT PAYBACK
+        #if (curentOverdraft!=overdraftAllowed)
         
     #withdraws cash into the current Balance of the account. Is used by Account class and should not be used by the other classes
     def withdraw(self,cash):
@@ -119,7 +121,6 @@ class SavingsAccount(Account):
             return False #False for successful print statement to show or not
         else:
             self.curBal-=requestedAmount
-            print("oui oui oui save")
             return True #True for successful print statement to show and changes the culminative current balance respectively
 
 
@@ -129,18 +130,36 @@ class ChequingAccount(Account):
         super().__init__(num+2,holder,0,cheqBal)
         self.roi=0 #cheq roi
         self.overdraftAllowed=overdraft
+        self.currentOverdraft=overdraft
 
     def getOverdraft(self):
-        return self.overdraftAllowed
+        return self.currentOverdraft
 
-    #GO OVER!!
-    # def withdraw(self,requestedAmount):
-    #     if requestedAmount>self.overdraftAllowed:
-    #         print("Withdraw rejected. Your current balance is ${} CAD, and you have ${} CAD left in your overdraft.".format(self.curBal,self.overdraftAllowed))
-    #         return False #False for successful print statement to show or not
-    #     else:
-    #         self.curBal-=requestedAmount
-    #         print("oui oui oui cheq")
+    def deposit(self,cash):
+        #if the overdraft was used. it must be paid back first.
+        if(self.overdraftAllowed!=self.currentOverdraft):
+            diff=self.overdraftAllowed-self.currentOverdraft
+            if (diff<cash):
+                self.currentOverdraft+=diff
+
+            elif (diff>=cash):
+                self.currentOverdraft+=cash
+       
+       #curBal represents both debt from overdraft AND the current positive balance in chequing overall
+        self.curBal+=cash
+
+#THE MAIN ANNOYANCE RIGHT NOW -withdrawal
+    def withdraw(self,requestedAmount):
+        if (requestedAmount>=0 and (requestedAmount>=(self.curBal+self.currentOverdraft) and (self.currentOverdraft<=0 and self.curBal<0))):
+            print("Withdraw rejected. Your current balance is ${} CAD, and you have ${} CAD left in your overdraft.".format(self.curBal,self.currentOverdraft))
+            return False #False for successful print statement to show or not
+        else:
+            if(self.curBal<=0):
+                self.currentOverdraft-=(requestedAmount)
+            self.curBal-=requestedAmount
+
+            print("oui oui oui cheq")
+            return True
 
 
 
