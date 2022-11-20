@@ -58,6 +58,12 @@ class Bank:
             if(accounts.getAccNum() == mainAccount+1):
                 return accounts
 
+    #searches the cheqAccList for the respective account. mainAccount parameter should be the main account's num
+    def searchCheqAccount(self,mainAccount):
+        for accounts in self.cheqAccList:
+            if(accounts.getAccNum() == mainAccount+2):
+                return accounts
+
 
 #class Account, culminative of user
 class Account:
@@ -83,7 +89,8 @@ class Account:
     def getCurrentBal(self):
         return self.curBal
 
-    def deposit(self):
+    def deposit(self,cash):
+        self.curBal+=cash
         print("deposit :)")
         
     def withdraw(self):

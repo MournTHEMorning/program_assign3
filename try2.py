@@ -54,6 +54,9 @@ class Program:
 
     def showAccountMenu(self,askedAccount): #HERE
         accMenu=" "
+        holderSavAcc=self.bank.searchSavAccount(askedAccount.getAccNum()) #gives program the savings account obj
+        holderCheqAcc=self.bank.searchCheqAccount(askedAccount.getAccNum()) #gives program the cheq account obj
+
         print(self.breakLine+"\nWelcome to Account {}. This is the account menu.".format(askedAccount.getAccNum()))
 
         while accMenu!="RETURN": 
@@ -63,15 +66,33 @@ class Program:
 
                 #Account Menu[B]: Checks Balance of Savings, Chequings and Culminative 
                 if(accMenu=="B"):
-                    print("Savings({}): ${} CAD\nChequing({}): ${} CAD\n----\nCulminative({}): ${} CAD") #ADD FORMAT LATER!!!
+                    print("Savings(Account #{}): ${} CAD\nChequing(Account #{}): ${} CAD\n----\nCulminative(Account #{}): ${} CAD".format(holderSavAcc.getAccNum(),holderSavAcc.getCurrentBal(),holderCheqAcc.getAccNum(),holderCheqAcc.getCurrentBal(),askedAccount.getAccNum(),askedAccount.getCurrentBal()))
                     input("PRESS ANY KEY TO CONTINUE: ")
                 
                 #Account Menu[D]: Deposits money in Savings or Chequings
                 elif(accMenu=="D"):
-                    accountType=input("Deposit to Savings[S] or Chequing[C] account? Any other key to leave: ").upper()
-                    if accountType=="S":
-                        print("save")
-                        self.bank.searchSavAccount(askedAccount.getAccNum())
+                    verify=input("Are you sure you want to deposit? Type YES to continue: ").upper()
+                    if verify=="YES":
+                        accountType=input("Deposit to Savings[S] or Chequing[C] account? ").upper()
+                        cash=float(input("How much money are you depositing?: "))
+                        if accountType=="S" and cash>=0:
+                            holderSavAcc.deposit(cash)
+                            input("Your Savings deposit has been processed. PRESS ANY KEY TO CONTINUE:")
+
+                            #updates the main account's cur bal 
+                            askedAccount.deposit(cash)
+                    
+
+                        elif accountType=="C" and cash>=0:
+                            holderCheqAcc.deposit(cash)
+                            input("Your Chequing deposit has been processed. PRESS ANY KEY TO CONTINUE:")
+                        
+                            #updates the main account's cur bal 
+                            askedAccount.deposit(cash)
+                    
+ 
+
+
                         
 
 
