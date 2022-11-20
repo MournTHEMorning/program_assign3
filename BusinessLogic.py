@@ -2,12 +2,29 @@
 class Bank:
     bankName="Oddity Bank"
     def __init__(self):
-        self.accList=[] #change!!!!
+        self.accList=[]
         acc1=Account(1234,"Exa Pullwan",5000,4000)
         acc2=Account(2345,"Anna Tracy",100,50)
         acc3=Account(3456,"Aniok Tara",20,0.05)
         acc4=Account(4567,"Pickolas Cage",20000,3000)
         acc5=Account(5678,"Iwan Kim",3000,900)
+
+        #adding accounts on list
+        self.accList.append(acc1)
+        self.accList.append(acc2)
+        self.accList.append(acc3)
+        self.accList.append(acc4)
+        self.accList.append(acc5)
+
+        # #checking if it's in list, DELETE LATER. All good as of 12:04PM nov 20
+        # for accounts in self.accList:
+        #     print(accounts.getAccNum())
+
+    def searchAccount(self,accountSearch):
+        for accounts in self.accList:
+            if(accounts.getAccNum() == accountSearch):
+                return accounts
+        return "Oddity Bank does not have this account number. Please open an account with us."
 
 
 #class Account, culminative of user
