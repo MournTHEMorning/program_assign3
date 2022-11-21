@@ -6,11 +6,11 @@ class Bank:
         #general account list
         self.accList=[]
         #Account(number,holder,savingsBal,chequeBal)
-        acc1=Account(1234,"Exa Pullwan",5000,4000)
-        acc2=Account(2345,"Anna Tracy",100,50)
-        acc3=Account(3456,"Aniok Tara",20,0.05)
-        acc4=Account(4567,"Pickolas Cage",20000,3000)
-        acc5=Account(5678,"Iwan Kim",3000,900)
+        acc1=Account(1234,"Exa Pullwan",5000.0,4000.0) #acc1, acc2, etc. are temporary and reused to create the respective obj
+        acc2=Account(2345,"Anna Tracy",100.0,50.0)
+        acc3=Account(3456,"Aniok Tara",20.0,0.05)
+        acc4=Account(4567,"Pickolas Cage",20000.0,3000.0)
+        acc5=Account(5678,"Iwan Kim",3000.0,900.0)
 
         #adding accounts on list
         self.accList.append(acc1)
@@ -22,11 +22,11 @@ class Bank:
         #Savings account list
         self.savAccList=[]
         #SavingsAccount(general Account number,holder,savingsBal,minimumBal)
-        acc1=SavingsAccount(1234,"Exa Pullwan",5000,5000)
-        acc2=SavingsAccount(2345,"Anna Tracy",100,100)
-        acc3=SavingsAccount(3456,"Aniok Tara",20,5)
-        acc4=SavingsAccount(4567,"Pickolas Cage",20000,5000)
-        acc5=SavingsAccount(5678,"Iwan Kim",3000,1000)
+        acc1=SavingsAccount(1234,"Exa Pullwan",5000.0,5000.0)
+        acc2=SavingsAccount(2345,"Anna Tracy",100.0,100.0)
+        acc3=SavingsAccount(3456,"Aniok Tara",20.0,5.0)
+        acc4=SavingsAccount(4567,"Pickolas Cage",20000.0,5000.0)
+        acc5=SavingsAccount(5678,"Iwan Kim",3000.0,1000.0)
 
         #adding savings accounts on list
         self.savAccList.append(acc1)
@@ -38,11 +38,11 @@ class Bank:
         #Chequing account list
         self.cheqAccList=[]
         #SavingsAccount(general Account number,holder,chequingBal,overdraft Allowed)
-        acc1=ChequingAccount(1234,"Exa Pullwan",4000,500)
-        acc2=ChequingAccount(2345,"Anna Tracy",50,1000)
-        acc3=ChequingAccount(3456,"Aniok Tara",0.05,5000)
-        acc4=ChequingAccount(4567,"Pickolas Cage",3000,10000)
-        acc5=ChequingAccount(5678,"Iwan Kim",900,50)
+        acc1=ChequingAccount(1234,"Exa Pullwan",4000.0,500.0)
+        acc2=ChequingAccount(2345,"Anna Tracy",50.0,1000.0)
+        acc3=ChequingAccount(3456,"Aniok Tara",0.05,5000.0)
+        acc4=ChequingAccount(4567,"Pickolas Cage",3000.0,10000.0)
+        acc5=ChequingAccount(5678,"Iwan Kim",900.0,50.0)
 
         #adding chequing accounts on list
         self.cheqAccList.append(acc1)
@@ -130,9 +130,13 @@ class SavingsAccount(Account):
 class ChequingAccount(Account):
     def __init__(self,num,holder,cheqBal,overdraft):
         super().__init__(num+2,holder,0,cheqBal) #see Account class
-        self.roi=0 #cheque roi
+        self.roi=0.0 #cheque roi
         self.overdraftAllowed=overdraft
         self.currentOverdraft=overdraft
+
+    #getOverdraftAllowed(): returns overdraftAllowed
+    def getOverdraftAllowed(self):
+        return self.overdraftAllowed
 
     #getOverdraft(): returns current overdraft
     def getOverdraft(self):
