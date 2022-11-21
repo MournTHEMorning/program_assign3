@@ -1,3 +1,4 @@
+"""BUSINESSLOGIC.PY: Module that has all classes and methods related to the logic (Classes: Bank, Account, SavingsAccount,ChequingAccount) """
 #Class Bank: represents Oddity Bank
 class Bank:
     bankName="Oddity Bank"
