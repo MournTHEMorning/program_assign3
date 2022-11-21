@@ -45,7 +45,7 @@ class Program:
             finally:
                 print(self.breakLine)
 
-    def showAccountMenu(self,askedAccount): #HERE
+    def showAccountMenu(self,askedAccount):
         accMenu=" "
         holderSavAcc=self.bank.searchSavAccount(askedAccount.getAccNum()) #gives program the savings account obj
         holderCheqAcc=self.bank.searchCheqAccount(askedAccount.getAccNum()) #gives program the cheq account obj
@@ -94,18 +94,18 @@ class Program:
                             accountType=input("Withdraw from Savings[S] or Chequing[C] account? ").upper()
                         cash=float(input("How much money are you withdrawing?: "))
                         
-                        # #SAVINGS ACCOUNT
+                        #SAVINGS ACCOUNT
                         if (accountType=="S" and cash>=0):
                             if(holderSavAcc.withdraw(cash)):
                                 input("Your Savings withdrawal has been processed. PRESS ANY KEY TO CONTINUE:")
-                                #updates the main account's cur bal 
+                                #updates the main account's current balance
                                 askedAccount.withdraw(cash)
 
-                        # #CHEQUING ACCOUNT
+                        #CHEQUING ACCOUNT
                         elif (accountType=="C" and cash>=0):
                             if(holderCheqAcc.withdraw(cash)):
                                 input("Your Chequing withdrawal has been processed. PRESS ANY KEY TO CONTINUE:")
-                                #updates the main account's cur bal 
+                                #updates the main account's current balance
                                 askedAccount.withdraw(cash)
 
                 #Account Menu: Not an option in Account Menu
@@ -115,6 +115,7 @@ class Program:
 
             except Exception:
                 print("2. There was an error in the input")
+
             #ending for the account menu try block
             finally:
                 print(self.breakLine)
@@ -125,6 +126,6 @@ class Program:
         self.showMainMenu()
         print("\nHave a good one, customer!")
 
-#main code
+#---main code----
 main=Program()
 main.run()

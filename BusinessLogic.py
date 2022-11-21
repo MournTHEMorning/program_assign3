@@ -1,7 +1,8 @@
-#Class Bank
+#Class Bank: represents Oddity Bank
 class Bank:
     bankName="Oddity Bank"
     def __init__(self):
+        #general account list
         self.accList=[]
         #Account(number,holder,savingsBal,chequeBal)
         acc1=Account(1234,"Exa Pullwan",5000,4000)
@@ -49,70 +50,72 @@ class Bank:
         self.cheqAccList.append(acc4)
         self.cheqAccList.append(acc5)
 
+    #searchAccount(): looks for account in general list
     def searchAccount(self,accountSearch):
         for accounts in self.accList:
             if(accounts.getAccNum() == accountSearch):
                 return accounts
         return "Oddity Bank does not have this account number. Please leave and go to a different bank."
 
-    #searches the savAccList for the respective account. mainAccount parameter should be the main account's num
+    #searchSavAccount(): searches the savAccList for the respective account. mainAccount parameter should be the main account's num
     def searchSavAccount(self,mainAccount):
         for accounts in self.savAccList:
             if(accounts.getAccNum() == mainAccount+1):
                 return accounts
 
-    #searches the cheqAccList for the respective account. mainAccount parameter should be the main account's num
+    #searchCheqAccount(): searches the cheqAccList for the respective account. mainAccount parameter should be the main account's num
     def searchCheqAccount(self,mainAccount):
         for accounts in self.cheqAccList:
             if(accounts.getAccNum() == mainAccount+2):
                 return accounts
 
 
-#class Account, culminative of user
+#class Account: culminative of user and parent of SavingsAccount and ChequingAccount
 class Account:
     def __init__(self,num,holder,savBal,cheqBal):
         self.num=num
         self.holder=holder
         self.roi=0.1    #culminative rate of interest
-        self.curBal=savBal+cheqBal  #Account class: sum of savBal and cheqBal. If savings or chequing account, one will equal zero, respectively
+        self.curBal=savBal+cheqBal  #Account class: sum of savBal and cheqBal. 
+                                        #Children Classes: savBal or cheqBal will equal zero depending if it is savings or chequing account
 
-    #4 digit number
+    #getAccNum(): returns the 4 digit account number
     def getAccNum(self):
         return self.num
 
-    # one user    
+    #getAccHolder(): returns the holder of the account    
     def getAccHolder(self):
         return self.holder
     
-    #get Rate of interest
+    #getROI(): returns Rate of interest
     def getROI(self):
         return self.roi
 
-    #get currentBalance. get total if in account class, gets specific class balance of cheq or save
+    #getCurrentBal():return currentBalance. It will get the total if in account class, but will get specific balance for children classes
     def getCurrentBal(self):
         return self.curBal
 
-    #deposits cash into the current Balance of the account
+    #deposit(): deposits cash into the current Balance of the account
     def deposit(self,cash):
         self.curBal+=cash
         
-    #withdraws cash into the current Balance of the account. Is used by Account class and should not be used by the other classes
+    #withdraw(): withdraws cash into the current Balance of the account. Is used by Account class and should not be used by the children classes
     def withdraw(self,cash):
         self.curBal-=cash
-        print("withdrawww")
 
 
-
-#class SavingsAccount
+#class SavingsAccount: child of Account and is Savings Account
 class SavingsAccount(Account):
     def __init__(self,num,holder,savBal,minimum):
-        super().__init__(num+1,holder,savBal,0)
+        super().__init__(num+1,holder,savBal,0) #see Account class
         self.roi=0.1 #savings roi
         self.minimumBalance=minimum
 
+    #getMiniBal(): returns the minimumBalance
     def getMiniBal(self):
         return self.minimumBalance
 
+    #withdraw(): withdraws from savings account with minimum balance in mind
     def withdraw(self,requestedAmount):
         if (requestedAmount>(self.curBal-self.minimumBalance) and requestedAmount>=0):
             print("Withdraw rejected. Your current balance is ${} CAD, and your minimum balance required in this savings account is ${} CAD.".format(self.curBal,self.minimumBalance))
@@ -122,17 +125,19 @@ class SavingsAccount(Account):
             return True #True for successful print statement to show and changes the culminative current balance respectively
 
 
-#class ChequingAccount
+#class ChequingAccount:child of Account and is Chequing Account
 class ChequingAccount(Account):
     def __init__(self,num,holder,cheqBal,overdraft):
-        super().__init__(num+2,holder,0,cheqBal)
-        self.roi=0 #cheq roi
+        super().__init__(num+2,holder,0,cheqBal) #see Account class
+        self.roi=0 #cheque roi
         self.overdraftAllowed=overdraft
         self.currentOverdraft=overdraft
 
+    #getOverdraft(): returns current overdraft
     def getOverdraft(self):
         return self.currentOverdraft
 
+    #deposit(): different from deposit in Account class, as this includes the possible overdraft debt
     def deposit(self,cash):
         #if the overdraft was used. it must be paid back first.
         if(self.overdraftAllowed!=self.currentOverdraft):
@@ -146,13 +151,17 @@ class ChequingAccount(Account):
        #curBal represents both debt from overdraft AND the current positive balance in chequing overall
         self.curBal+=cash
 
+    #withdraw(): withdraws from chequing account
     def withdraw(self,requestedAmount):
+
+        #if requestedAmount cannot be withdrawn
         if((self.curBal<=0 and self.currentOverdraft<(requestedAmount)) or requestedAmount<0):
             print("Withdraw rejected. Your current balance is ${} CAD, and you have ${} CAD left in your self.currentOverdraft.".format(self.curBal,self.currentOverdraft))
             print("self.currentOverdraft {} | bal {} | request {}".format(self.currentOverdraft,self.curBal,requestedAmount))
 
-            return False #False for successful print statement to show or not
-    
+            return False #False for successful print statement in application.py to show or not
+
+        #if requestedAmount CAN be withdrawn
         else:
             if(self.curBal>0):
                 self.curBal-=requestedAmount
@@ -164,21 +173,4 @@ class ChequingAccount(Account):
                 self.curBal-=requestedAmount
                 self.currentOverdraft-=requestedAmount
 
-            print("oui oui oui cheq")
-            print("self.currentOverdraft {} | bal {} | request {}".format(self.currentOverdraft,self.curBal,requestedAmount))
-
-            return True #True for successful print statement to show or not
-
-
-
-
-
-#Testing; DELETE LATER
-# for account in Bank().accList:
-#     print(account.getAccNum())
-
-# for account in Bank().savAccList:
-#     print(account.getAccNum())
-
-# for account in Bank().cheqAccList:
-#     print(account.getAccNum())
+            return True #True for successful print statement in application.py to show or not
