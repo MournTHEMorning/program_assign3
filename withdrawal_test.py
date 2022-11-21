@@ -1,12 +1,14 @@
-#THE MAIN ANNOYANCE RIGHT NOW -withdrawal HERE!!!
 def withdraw(requestedAmount):
-    curBal=-10
-    overdraft=0
 
-    # if (requestedAmount>=0 and (requestedAmount>=(curBal+overdraft) and (overdraft<=0 and curBal<0))):
-    if(requestedAmount<0 or (requestedAmount>overdraft)):
-        print("Withdraw rejected. Your current balance is ${} CAD, and you have ${} CAD left in your overdraft.".format(curBal,overdraft))
-        print("overdraft {} | bal {} | request {}".format(overdraft,curBal,requestedAmount))
+    #temp val
+    curBal=5000.5
+    currentOverdraft=500
+
+    # if(requestedAmount<0 or (requestedAmount>currentOverdraft)):
+    if((curBal<=0 and currentOverdraft<(requestedAmount)) or requestedAmount<0):
+
+        print("Withdraw rejected. Your current balance is ${} CAD, and you have ${} CAD left in your currentOverdraft.".format(curBal,currentOverdraft))
+        print("currentOverdraft {} | bal {} | request {}".format(currentOverdraft,curBal,requestedAmount))
 
         return False #False for successful print statement to show or not
     
@@ -14,15 +16,15 @@ def withdraw(requestedAmount):
         if(curBal>0):
             curBal-=requestedAmount
             if(curBal<=0):
-                overdraft-=abs(curBal)
+                currentOverdraft-=abs(curBal)
         #if curBal is less than or greater than zero
         else:
             curBal-=requestedAmount
-            overdraft-=requestedAmount
+            currentOverdraft-=requestedAmount
 
         print("oui oui oui cheq")
-        print("overdraft {} | bal {} | request {}".format(overdraft,curBal,requestedAmount))
+        print("currentOverdraft {} | bal {} | request {}".format(currentOverdraft,curBal,requestedAmount))
 
         return True
 
-withdraw(10)
+withdraw(5100.5)

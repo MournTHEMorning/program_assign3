@@ -95,8 +95,6 @@ class Account:
     #deposits cash into the current Balance of the account
     def deposit(self,cash):
         self.curBal+=cash
-        #ADD OVERDRAFT DEBT PAYBACK
-        #if (curentOverdraft!=overdraftAllowed)
         
     #withdraws cash into the current Balance of the account. Is used by Account class and should not be used by the other classes
     def withdraw(self,cash):
@@ -148,18 +146,29 @@ class ChequingAccount(Account):
        #curBal represents both debt from overdraft AND the current positive balance in chequing overall
         self.curBal+=cash
 
-#THE MAIN ANNOYANCE RIGHT NOW -withdrawal
     def withdraw(self,requestedAmount):
-        if (requestedAmount>=0 and (requestedAmount>=(self.curBal+self.currentOverdraft) and (self.currentOverdraft<=0 and self.curBal<0))):
-            print("Withdraw rejected. Your current balance is ${} CAD, and you have ${} CAD left in your overdraft.".format(self.curBal,self.currentOverdraft))
+        if((self.curBal<=0 and self.currentOverdraft<(requestedAmount)) or requestedAmount<0):
+            print("Withdraw rejected. Your current balance is ${} CAD, and you have ${} CAD left in your self.currentOverdraft.".format(self.curBal,self.currentOverdraft))
+            print("self.currentOverdraft {} | bal {} | request {}".format(self.currentOverdraft,self.curBal,requestedAmount))
+
             return False #False for successful print statement to show or not
+    
         else:
-            if(self.curBal<=0):
-                self.currentOverdraft-=(requestedAmount)
-            self.curBal-=requestedAmount
+            if(self.curBal>0):
+                self.curBal-=requestedAmount
+                if(self.curBal<=0):
+                    self.currentOverdraft-=abs(self.curBal)
+
+            #if self.curBal is less than or greater than zero
+            else:
+                self.curBal-=requestedAmount
+                self.currentOverdraft-=requestedAmount
 
             print("oui oui oui cheq")
-            return True
+            print("self.currentOverdraft {} | bal {} | request {}".format(self.currentOverdraft,self.curBal,requestedAmount))
+
+            return True #True for successful print statement to show or not
+
 
 
 
